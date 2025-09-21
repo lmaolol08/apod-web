@@ -182,3 +182,95 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   color: white;
   border-radius: 8px;
 }
+/* Center APOD container */
+#apod-container {
+  max-width: 800px;
+  margin: 0 auto; /* centers the whole block */
+  padding: 20px;
+  text-align: center;
+}
+
+/* Style for Flatpickr date input */
+#datePicker {
+  background: rgba(255, 255, 255, 0.1); /* transparent glass look */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 10px 15px;
+  font-size: 16px;
+  color: #fff;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  outline: none;
+  margin-right: 10px;
+  width: 180px;
+}
+
+/* Make placeholder text match theme */
+#datePicker::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+/* Flexbox layout for image + description */
+#apod-content {
+  display: flex;
+  flex-wrap: wrap; /* stack on smaller screens */
+  align-items: flex-start;
+  justify-content: center;
+  gap: 20px;
+  margin: 20px auto;
+  max-width: 1000px;
+}
+
+/* Image styling */
+#apod-image {
+  max-width: 45%;   /* image takes less width */
+  max-height: 400px; /* make image shorter */
+  object-fit: cover;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Explanation box styling */
+#explanation {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 20px;
+  border-radius: 15px;
+  color: #f0f0f0;
+  line-height: 1.6;
+  font-size: 16px;
+  text-align: left;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+/* Animations */
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Apply animations */
+#apod-image.animate {
+  animation: fadeInLeft 0.8s ease forwards;
+}
+
+#explanation.animate {
+  animation: fadeInRight 0.8s ease forwards;
+}
