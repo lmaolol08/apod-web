@@ -3,11 +3,22 @@
 <head>
   <meta charset="utf-8" />
   <title>APOD — NASA Astronomy Picture of the Day</title>
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
   <h1>NASA APOD</h1>
   <div id="apod-container">
-    <p>Project scaffold — more coming soon.</p>
+    <h2 id="title"></h2>
+    <img id="apod-image" alt="APOD image" style="display:none; max-width:100%;">
+    <p id="explanation"></p>
+
+    <div style="margin-top:12px;">
+      <input type="date" id="datePicker" />
+      <button id="loadBtn">Load APOD</button>
+    </div>
   </div>
+
+  <script src="script.js" defer></script>
 </body>
 </html>
