@@ -9,7 +9,7 @@ const loadBtn = document.getElementById("loadBtn");
 
 async function getApod(date) {
   // Call the Netlify serverless function instead of NASA API directly
-  let url = "/api/apod";
+  let url = "/.netlify/functions/apod";
   if (date) url += `?date=${date}`;
 
   try {
