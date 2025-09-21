@@ -1,4 +1,6 @@
-const API_KEY = "CBxMZxICEdfJ3jf8XhsZLkQErco9cposHo2gc70c"; 
+// script.js
+// Frontend code for APOD web app, using Netlify function proxy
+
 const titleEl = document.getElementById("title");
 const imageEl = document.getElementById("apod-image");
 const explanationEl = document.getElementById("explanation");
@@ -6,18 +8,22 @@ const datePicker = document.getElementById("datePicker");
 const loadBtn = document.getElementById("loadBtn");
 
 async function getApod(date) {
-  let url = `https://api.nasa.gov/planetary/apod?api_key=${API_KEY}`;
-  if (date) url += `&date=${date}`;
+  // Call the Netlify serverless function instead of NASA API directly
+  let url = "/.netlify/functions/apod";
+  if (date) url += `?date=${date}`;
+
   try {
     const res = await fetch(url);
     const data = await res.json();
+
     if (data.error) {
-      titleEl.textContent = "Error: " + (data.error.message || "API error");
+      titleEl.textContent = "Error: " + (data.error.message || data.error);
       imageEl.style.display = "none";
       explanationEl.textContent = "";
       return;
     }
 
+    // Populate the DOM
     titleEl.textContent = data.title || "";
     explanationEl.textContent = data.explanation || "";
 
@@ -26,8 +32,9 @@ async function getApod(date) {
       imageEl.style.display = "block";
     } else {
       imageEl.style.display = "none";
-      // for videos (YouTube etc.)
-      explanationEl.innerHTML += `<br><a href="${data.url}" target="_blank">View video</a>`;
+      explanationEl.innerHTML =
+        (data.explanation || "") +
+        `<br><a href="${data.url}" target="_blank">View media</a>`;
     }
   } catch (err) {
     titleEl.textContent = "Network error";
@@ -35,10 +42,11 @@ async function getApod(date) {
   }
 }
 
+// Load APOD for chosen date
 loadBtn.addEventListener("click", () => {
   const d = datePicker.value;
   getApod(d);
 });
 
-// load today's APOD on page load
+// Load today’s APOD on page load
 getApod();
