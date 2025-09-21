@@ -1,77 +1,60 @@
 // script.js
 // Frontend code for APOD web app, using Netlify function proxy
 
-const titleEl = document.getElementById("title");
+const dateInput = document.getElementById("date");
+const loadBtn = document.getElementById("load-btn");
 const imageEl = document.getElementById("apod-image");
+const videoEl = document.getElementById("apod-video");
+const titleEl = document.getElementById("title");
 const explanationEl = document.getElementById("explanation");
-const datePicker = document.getElementById("datePicker");
-const loadBtn = document.getElementById("loadBtn");
 
-// Initialize Flatpickr
-flatpickr("#datePicker", {
-  dateFormat: "Y-m-d",   // matches NASA API format
-  defaultDate: "today",
-  maxDate: "today",
-  theme: "dark"
-});
-
-function resetFade() {
-  titleEl.classList.remove("show");
-  explanationEl.classList.remove("show");
-  imageEl.classList.remove("show");
-}
-
+// Load APOD for selected date
 async function getApod(date) {
-  let url = "/.netlify/functions/apod";
-  if (date) url += `?date=${date}`;
-
   try {
-    const res = await fetch(url);
+    const res = await fetch(`${BASE_URL}?api_key=${API_KEY}&date=${date}`);
     const data = await res.json();
 
-    if (data.error) {
-      titleEl.textContent = "Error: " + (data.error.message || data.error);
-      imageEl.style.display = "none";
-      explanationEl.textContent = "";
-      return;
-    }
+    // Reset animations
+    imageEl.classList.remove("animate");
+    explanationEl.classList.remove("animate");
+    titleEl.classList.remove("animate");
 
-    // Reset fade classes before showing new content
-    resetFade();
-
-    // Populate title + explanation
+    // Apply data
     titleEl.textContent = data.title || "";
-    explanationEl.textContent = data.explanation || "";
-
-    // Trigger fade-in
-    setTimeout(() => {
-      titleEl.classList.add("show");
-      explanationEl.classList.add("show");
-    }, 50);
 
     if (data.media_type === "image") {
       imageEl.src = data.url;
       imageEl.style.display = "block";
-      imageEl.onload = () => {
-        imageEl.classList.add("show");
-      };
-    } else {
+      videoEl.style.display = "none";
+    } else if (data.media_type === "video") {
+      videoEl.src = data.url;
+      videoEl.style.display = "block";
       imageEl.style.display = "none";
-      explanationEl.innerHTML =
-        (data.explanation || "") +
-        `<br><a href="${data.url}" target="_blank">View media</a>`;
     }
-  } catch (err) {
-    titleEl.textContent = "Network error";
-    explanationEl.textContent = err.message;
+
+    explanationEl.textContent = data.explanation || "";
+
+    // Re-trigger animations after short delay
+    setTimeout(() => {
+      imageEl.classList.add("animate");
+      explanationEl.classList.add("animate");
+      titleEl.classList.add("animate");
+    }, 100);
+
+  } catch (error) {
+    console.error("Error fetching APOD:", error);
   }
 }
 
-// Load APOD for chosen date
-loadBtn.addEventListener("click", () => {
-  const d = datePicker.value;
-  getApod(d);
+// Default: load today’s APOD
+document.addEventListener("DOMContentLoaded", () => {
+  const today = new Date().toISOString().split("T")[0];
+  dateInput.value = today;
+  getApod(today);
 });
 
-// Load today’s APOD on page load
-getApod();
+// Load APOD on button click
+loadBtn.addEventListener("click", () => {
+  const date = dateInput.value;
+  if (date) getApod(date);
+});
