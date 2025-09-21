@@ -2,8 +2,7 @@
   publish = "."
   functions = "netlify/functions"
 
-# Optional: redirects API requests to the function
 [[redirects]]
-  from = "/.netlify/functions/*"
+  from = "/api/*"
   to = "/.netlify/functions/:splat"
   status = 200
