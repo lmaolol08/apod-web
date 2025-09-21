@@ -7,6 +7,14 @@ const explanationEl = document.getElementById("explanation");
 const datePicker = document.getElementById("datePicker");
 const loadBtn = document.getElementById("loadBtn");
 
+// Initialize Flatpickr
+flatpickr("#datePicker", {
+  dateFormat: "Y-m-d",   // matches NASA API format
+  defaultDate: "today",
+  maxDate: "today",
+  theme: "dark"
+});
+
 function resetFade() {
   titleEl.classList.remove("show");
   explanationEl.classList.remove("show");

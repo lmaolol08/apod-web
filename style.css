@@ -167,3 +167,18 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   filter: invert(1);
   cursor: pointer;
 }
+
+.flatpickr-calendar {
+  background: rgba(20, 20, 40, 0.8);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+}
+
+.flatpickr-day.selected {
+  background: linear-gradient(135deg, #00d2ff, #3a7bd5);
+  color: white;
+  border-radius: 8px;
+}

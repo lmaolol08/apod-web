@@ -4,6 +4,12 @@
   <meta charset="utf-8" />
   <title>APOD — NASA Astronomy Picture of the Day</title>
   <link rel="stylesheet" href="style.css">
+  <!-- Flatpickr CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+<!-- Flatpickr Dark Theme -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/dark.css">
+
 </head>
 
 <body>
@@ -14,11 +20,14 @@
     <p id="explanation" class="fade"></p>
 
     <div style="margin-top:12px;">
-      <input type="date" id="datePicker" />
+      <input type="text" id="datePicker" placeholder="Select a date" />
       <button id="loadBtn">Load APOD</button>
     </div>
   </div>
 
   <script src="script.js" defer></script>
+  <!-- Flatpickr JS -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
 </body>
 </html>
