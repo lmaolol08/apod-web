@@ -4,35 +4,34 @@
   <meta charset="utf-8" />
   <title>APOD — NASA Astronomy Picture of the Day</title>
   <link rel="stylesheet" href="style.css">
+
   <!-- Flatpickr CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-
-<!-- Flatpickr Dark Theme -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/dark.css">
-
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <!-- Flatpickr Dark Theme -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/dark.css">
 </head>
 
 <body>
   <h1>NASA APOD</h1>
+
   <div id="apod-container">
     <h2 id="title" class="fade"></h2>
-    <img id="apod-image" alt="APOD image" class="fade" style="display:none;">
-    <p id="explanation" class="fade"></p>
 
+    <!-- Image + Explanation side by side -->
+    <div id="apod-content">
+      <img id="apod-image" alt="APOD image" class="fade" style="display:none;">
+      <p id="explanation" class="fade"></p>
+    </div>
+
+    <!-- Date picker + button -->
     <div style="margin-top:12px;">
       <input type="text" id="datePicker" placeholder="Select a date" />
       <button id="loadBtn">Load APOD</button>
     </div>
   </div>
-  <div id="apod-content">
-  <img id="apod-image" alt="APOD image" style="display:none;">
-  <p id="explanation"></p>
-</div>
 
-
+  <!-- Scripts -->
   <script src="script.js" defer></script>
-  <!-- Flatpickr JS -->
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 </body>
 </html>
